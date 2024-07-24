@@ -45,6 +45,8 @@ Chatbase API: Provides a responsive chat interface for user interaction.
 
 YOLOv5: Utilized for real-time object detection and victim identification in disaster-stricken areas.
 
+Html,css,js and NodeJs: For creating Frontend and Backend Website Integration with AI/ML.
+
 How It Works
 
 Prediction Phase:
