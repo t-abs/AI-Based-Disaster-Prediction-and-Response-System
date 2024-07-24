@@ -1,0 +1,161 @@
+# from re import DEBUG, sub
+# from flask import Flask, render_template, request, redirect, send_file, url_for
+# from werkzeug.utils import secure_filename, send_from_directory
+# import os
+# import subprocess
+
+# app = Flask(__name__)
+
+
+# uploads_dir = os.path.join(app.instance_path, 'uploads')
+
+# os.makedirs(uploads_dir, exist_ok=True)
+
+# @app.route("/")
+# def hello_world():
+#     return render_template('index.html')
+
+
+# @app.route("/detect", methods=['POST'])
+# def detect():
+#     if not request.method == "POST":
+#         return
+#     video = request.files['video']
+#     video.save(os.path.join(uploads_dir, secure_filename(video.filename)))
+#     print(video)
+#     subprocess.run("ls")
+#     subprocess.run(['python', 'detect.py', '--source', os.path.join(uploads_dir, secure_filename(video.filename))])
+
+#     # return os.path.join(uploads_dir, secure_filename(video.filename))
+#     obj = secure_filename(video.filename)
+#     return obj
+
+# @app.route("/opencam", methods=['GET'])
+# def opencam():
+#     print("here")
+#     subprocess.run(['python', 'detect.py', '--source', '0'])
+#     return "done"
+    
+
+# @app.route('/return-files', methods=['GET'])
+# def return_file():
+#     obj = request.args.get('obj')
+#     loc = os.path.join("runs/detect", obj)
+#     print(loc)
+#     try:
+#         return send_file(os.path.join("runs/detect", obj), attachment_filename=obj)
+#         # return send_from_directory(loc, obj)
+#     except Exception as e:
+#         return str(e)
+
+# # @app.route('/display/<filename>')
+# # def display_video(filename):
+# # 	#print('display_video filename: ' + filename)
+# # 	return redirect(url_for('static/video_1.mp4', code=200))
+
+
+from flask import Flask, render_template, request, redirect, send_file, url_for
+from werkzeug.utils import secure_filename, send_from_directory
+import os
+import subprocess
+import jsonify
+
+app = Flask(__name__)
+
+uploads_dir = os.path.join(app.instance_path, 'uploads')
+os.makedirs(uploads_dir, exist_ok=True)
+
+# @app.route("/")
+# def hello_world():
+#     return render_template('index.html')
+
+# @app.route("/detect", methods=['POST'])
+# def detect():
+#     if request.method != "POST":
+#         return "Invalid request method", 400
+#     video = request.files.get('video')
+#     if not video:
+#         return "No video file provided", 400
+#     filename = secure_filename(video.filename)
+#     video.save(os.path.join(uploads_dir, filename))
+#     print(video)
+#     subprocess.run(["ls"])
+#     subprocess.run(['python', 'detect.py', '--source', os.path.join(uploads_dir, filename)])
+#     return filename
+
+# @app.route("/opencam", methods=['GET'])
+# def opencam():
+#     print("here")
+#     subprocess.run(['python', 'detect.py', '--source', '0'])
+#     return "done"
+
+# @app.route('/return-files', methods=['GET'])
+# def return_file():
+#     obj = request.args.get('obj')
+#     if not obj:
+#         return "No file specified", 400
+#     loc = os.path.join("runs/detect", obj)
+#     print(loc)
+#     try:
+#         return send_file(loc, attachment_filename=obj, as_attachment=True)
+#     except Exception as e:
+#         return str(e), 500
+
+# @app.route('/return-files', methods=['GET'])
+# def return_file():
+#     files = os.listdir(uploads_dir)
+#     return jsonify({'files': files})
+
+
+
+@app.route("/")
+def hello_world():
+    return render_template('index.html')
+
+# @app.route("/detect", methods=['POST'])
+# def detect():
+#     if request.method != "POST":
+#         return "Invalid request method", 400
+#     video = request.files.get('video')
+#     if not video:
+#         return "No video file provided", 400
+#     filename = secure_filename(video.filename)
+#     video.save(os.path.join(uploads_dir, filename))
+#     print(video)
+#     subprocess.run(['python', 'detect.py', '--source', os.path.join(uploads_dir, filename)])
+#     output_filename = f"output_{filename}"
+#     return send_file(os.path.join(uploads_dir, output_filename), mimetype='video/mp4')
+
+@app.route("/detect", methods=['POST'])
+def detect():
+    if request.method != "POST":
+        return "Invalid request method", 400
+
+    video = request.files.get('video')
+    if not video:
+        return "No video file provided", 400
+
+    filename = secure_filename(video.filename)
+    video_path = os.path.join("static", filename)
+    print(video_path)
+    video.save(video_path)
+
+    output_filename = filename
+    output_path = os.path.join("static", output_filename)
+    print(output_path)
+    subprocess.run(['python', 'detect.py', '--source', video_path])
+
+    if os.path.exists(output_path):
+        return send_file(output_path, mimetype='video/mp4')
+    else:
+        return "Processing failed", 500
+
+
+@app.route('/return-files', methods=['GET'])
+def return_file():
+    files = os.listdir(uploads_dir)
+    return jsonify({'files': files})
+
+
+if __name__ == "__main__":
+    app.run(debug=False)
