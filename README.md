@@ -1,6 +1,9 @@
 # AI-Based-Disaster-Prediction-and-Response-System-
+![image](https://github.com/user-attachments/assets/23a3bc7a-fc18-4cfa-b570-344a286f169d)
 
-#Overview
+
+Overview
+
 The AI-Based Disaster Prediction and Response System is designed to leverage the power of Artificial Intelligence and Machine Learning to predict natural disasters and enhance response efforts. This project focuses on forecasting floods, earthquakes, and hurricanes, and provides tools to identify and assist victims post-disaster.
 
 #Features
@@ -34,7 +37,7 @@ Deployed YOLOv5 (You Only Look Once) object detection model to analyze post-disa
 ![Screenshot 2024-07-24 114922](https://github.com/user-attachments/assets/8ad80c30-0a40-49bc-8ec0-2f94fb85e8a0)
 
 
-#Technology Stack
+Technology Stack
 
 Machine Learning Models: Developed using Python, pandas, numpy, and scikit-learn.
 
@@ -42,7 +45,7 @@ Chatbase API: Provides a responsive chat interface for user interaction.
 
 YOLOv5: Utilized for real-time object detection and victim identification in disaster-stricken areas.
 
-#How It Works
+How It Works
 
 Prediction Phase:
 
