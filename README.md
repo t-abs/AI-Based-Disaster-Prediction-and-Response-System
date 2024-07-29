@@ -57,6 +57,48 @@ Prediction Phase:
 
 3.Prediction: The models generate forecasts based on current data inputs, providing early warnings for potential disasters.
 
+This repository contains large files tracked by Git LFS. To properly download and set up the project, follow these steps:
+
+Prerequisites
+Git
+
+Git LFS
+
+Python
+
+pip
+
+Node.js
+
+npm
+
+Installation
+
+Install Git LFS If you don't have Git LFS installed, download and install it from the Git LFS installation page.
+
+Clone the repository
+
+git clone https://github.com/shashank21raj/predicaster.git
+
+cd Predicaster
+
+Set up the Predicaster backend
+
+cd Predicater/Predicaster
+
+pip install -r requirements.txt
+
+python app.py
+
+Set up the Client (in a new terminal window)
+
+cd ../client
+
+npm i
+
+npm start
+
+
 #Response Phase:
 
 1.Chat Interface: Users interact with the system through a chat interface powered by Chatbase API to get real-time updates and safety advice.
