@@ -11,7 +11,8 @@ Predictive Models for Natural Disasters:
 
 1.Flood Prediction Model: Analyzes historical weather patterns, river levels, and precipitation data to forecast potential flooding events.
 
-![Screenshot 2024-07-24 114820](https://github.com/user-attachments/assets/fbba9a4e-4be6-442e-b8c3-60517e1eedf1)
+![Screenshot 2025-05-28 123053](https://github.com/user-attachments/assets/4953b177-b20e-430e-a3e4-1ddd5ca7cbd3)
+
 
 
 2.Earthquake Prediction Model: Utilizes seismic activity and geological data to predict earthquake occurrences and their potential impacts.
