@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flood Risk Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d47a1;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #0d47a1;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1565c0;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 20px;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flood Risk Prediction</h1>
+        <form method="post" action="/predict">
+            {% for feature in input_features %}
+                <label for="{{ feature }}">{{ feature.replace('_', ' ') }}:</label>
+                {% if feature in ['Land Cover', 'Soil Type', 'Infrastructure'] %}
+                    <select name="{{ feature }}" required>
+                        <option value="">-- Select --</option>
+                        {% if feature == 'Land Cover' %}
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Forest">Forest</option>
+                            <option value="Agriculture">Agriculture</option>
+                        {% elif feature == 'Soil Type' %}
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                        {% elif feature == 'Infrastructure' %}
+                            <option value="Poor">Poor</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Good">Good</option>
+                        {% endif %}
+                    </select>
+                {% else %}
+                    <input type="text" name="{{ feature }}" required>
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                Prediction Result: {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
