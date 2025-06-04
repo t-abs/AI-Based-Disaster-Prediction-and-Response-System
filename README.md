@@ -37,6 +37,10 @@ Deployed YOLOv5 (You Only Look Once) object detection model to analyze post-disa
 
 ![Screenshot 2024-07-24 114922](https://github.com/user-attachments/assets/8ad80c30-0a40-49bc-8ec0-2f94fb85e8a0)
 
+Input video- https://drive.google.com/file/d/1JavezBw-sL8aN0rA28tajhg9rKx9-IJC/view
+
+Output video- https://drive.google.com/file/d/1m8MW_zcCqczPru_CO85Y5WTe3nfdc9zE/view?pli=1
+
 
 Technology Stack
 
